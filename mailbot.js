@@ -70,6 +70,14 @@ var	get_body = (command) => {
 			console.log("ERROR GETTING THE MAIL BODY");
 			process.exit(2);
 		}
+	} else if (command === "Recordatorio") {
+		try {
+			var body = fs.readFileSync('./MailsBodies/MailRecordatorio.html', 'utf8');
+			return body;
+		} catch (e) {
+			console.log("ERROR GETTING THE MAIL BODY");
+			process.exit(2);
+		}
 	} else if (command === "Alta"){
 		try {
 			var body = fs.readFileSync('./MailsBodies/MailAlta.html', 'utf8');
@@ -95,6 +103,8 @@ var parse_body = (body, command, argv, name)=> {
 		body = body.replace('{}', `${argv.ComisionJP}`);
 		body = body.replace('{}', `${argv.ComisionHF}`);
 	} else if (command === "Alta") {
+		body = body.replace('{}',`${name}`);
+	} else if (command === "Recordatorio") {
 		body = body.replace('{}',`${name}`);
 	}
 	return body;
